@@ -1,6 +1,8 @@
-#ifndef TP3_H
-#define TP3_H
+#ifndef TP1_H
+#define TP1_H
+
 #include "../include/GraphUtilities.hpp"
+#include <string>
 
 using namespace std;
 

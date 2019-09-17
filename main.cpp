@@ -1,12 +1,10 @@
 #include <iostream>
-#include <fstream>
-#include <string>
-#include <algorithm>
-#include <iterator>
-#include <vector>
+//#include <fstream>
+//#include <string>
+//#include <vector>
 #include <stdio.h>
-#include <conio.h>
-#include "include/tp3.hpp"
+//#include <conio.h>
+#include "include/tp1.hpp"
 
 using namespace std;
 
