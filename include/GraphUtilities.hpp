@@ -2,6 +2,7 @@
 #define GRAPHUTILITIES_H
 
 #include <Graph.hpp>
+#include <string>
 
 using namespace std;
 
