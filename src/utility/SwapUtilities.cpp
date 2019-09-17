@@ -17,6 +17,15 @@ bool GetSwap(Graph graph, list<int> items)
 	if(!hasConnection)
 		return false;
 
+	graph.adj[item1].remove(item2);
+	graph.adj[item2].push_back(item1);
+
+	if(graph.HasCycle())
+	{
+		graph.adj[item2].remove(item1);
+		graph.adj[item1].push_back(item2);
+		return false;
+	}
 
 	return true;
 }
