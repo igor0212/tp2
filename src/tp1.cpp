@@ -47,9 +47,11 @@ void Commander(Graph graph)
 	//printf("Commander\n");
 }
 
-void Meeting(Graph graph)
-{
-	//printf("Meeting\n");
+void Meeting(Graph graph, string *fileOut)
+{	
+	string fila = "";
+	graph.Print(0, &fila);		
+	*fileOut += fila + "\n";	
 }
 
 void Tasks(Graph graph)
@@ -63,22 +65,21 @@ void Tasks(Graph graph)
 		for (pos = i.begin(); pos != i.end (); ++ pos) 
 		{
 			string command = pos->first;
-			list<int> items = pos->second;
+			list<int> items = pos->second;		
 
 			if(command == "S")
 				Swap(graph, items, &fileOut);
 			else if(command == "C")
 				Commander(graph);
 			else if(command == "M")
-				Meeting(graph);
+				Meeting(graph, &fileOut);
 			else
 			{
 				cout << "Comando " << command << " inválido";
 			}
 		}
 	}
-
-	//cout << graph.HasCycle() << "\n";
+	
 	cout << fileOut;
 	//PrintCommands(graph);
 }

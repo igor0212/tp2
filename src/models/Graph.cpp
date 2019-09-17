@@ -2,6 +2,9 @@
 #include <string>
 #include <map>
 #include ".\Graph.hpp"
+#include <iostream>
+#include<iostream> 
+#include <sstream> 
 
 using namespace std;
 
@@ -44,7 +47,7 @@ bool Graph::HasCycle()
 bool Graph::Dfs(int v, bool visited[], bool recStack[]) 
 { 
     visited[v] = true;
-	recStack[v] = true;
+	recStack[v] = true;	
   
     list<int>::iterator i; 
     for (i = adj[v].begin(); i != adj[v].end(); ++i) 
@@ -57,4 +60,14 @@ bool Graph::Dfs(int v, bool visited[], bool recStack[])
 
 	recStack[v] = false;
 	return false;
+}
+
+void Graph::Print(int v, string *fila)
+{ 	
+ 	ostringstream str_v; 
+ 	str_v << v; 
+	*fila += str_v.str() + " ";	
+	list<int>::iterator i; 	
+    for (i = adj[v].begin(); i != adj[v].end(); ++i) 	
+		Print(*i, fila);	
 }
