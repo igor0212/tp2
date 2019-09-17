@@ -49,9 +49,13 @@ void Commander(Graph graph)
 
 void Meeting(Graph graph, string *fileOut)
 {	
-	string fila = "";
-	graph.Print(0, &fila);		
-	*fileOut += fila + "\n";	
+	bool *visited = new bool[graph.V]; 
+    for (int i = 0; i < graph.V; i++) 
+	    visited[i] = false;
+	
+	string row = "";
+	graph.Print(0, visited, &row);		
+	*fileOut += row + "\n";	
 }
 
 void Tasks(Graph graph)

@@ -27,11 +27,11 @@ Graph GetGraphFromFile(string teamFile)
 	while (getline(inFile, line))
 	{	
 		istringstream s(line);
-		if(counter == 1)
+		if (counter == 1)
 		{  
     		if (!(s >> N >> M >> I)) { break; }	
 			graph.Create(N);
-		} else if  (counter == 2)
+		} else if (counter == 2)
 		{	
 			int age, index=0;			
 			while (s >> age) 
@@ -40,13 +40,13 @@ Graph GetGraphFromFile(string teamFile)
 				index++;
 			}	
 		}
-		else if  (counter >= 3 && counter < (3 + M))
+		else if (counter >= 3 && counter < (3 + M))
 		{
 			int commander, commanded;			
 			if (!(s >> commander >> commanded)) { break; }
 			graph.AddEdge(commander-1, commanded-1);
 		}
-		else if  (counter >= (3 + M) && counter < ((3 + M) + I))
+		else if (counter >= (3 + M) && counter < ((3 + M) + I))
 		{
 			string command = ""; 
 			int commander = 0, commanded = 0;

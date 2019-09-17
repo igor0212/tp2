@@ -62,12 +62,16 @@ bool Graph::Dfs(int v, bool visited[], bool recStack[])
 	return false;
 }
 
-void Graph::Print(int v, string *fila)
+void Graph::Print(int v, bool visited[], string *row)
 { 	
+	visited[v] = true;
  	ostringstream str_v; 
- 	str_v << v; 
-	*fila += str_v.str() + " ";	
+ 	str_v << v+1; 
+	*row += str_v.str() + " ";	
 	list<int>::iterator i; 	
-    for (i = adj[v].begin(); i != adj[v].end(); ++i) 	
-		Print(*i, fila);	
+    for (i = adj[v].begin(); i != adj[v].end(); ++i) 
+	{
+		if (!visited[*i])
+			Print(*i, visited, row);
+	}		
 }

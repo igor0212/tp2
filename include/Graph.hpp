@@ -20,7 +20,7 @@ class Graph
         bool HasCycle();
         bool Dfs(int v, bool visited[], bool recStack[]);
         void Alter(list<map<string, list<int>>> commands, map<int, int> ages);
-        void Print(int v, string *fila);
+        void Print(int v, bool visited[], string *row);
 }; 
 
 #endif
