@@ -19,8 +19,8 @@ class Graph
 	    void AddEdge(int v1, int v2);        
         bool HasCycle();
         bool Dfs(int v, bool visited[], bool recStack[]);
-        void Alter(list<map<string, list<int>>> commands, map<int, int> ages);
-        void Print(int v, bool visited[], string *row);
+        void Alter(list<map<string, list<int>>> commands, map<int, int> ages);        
+        void Bfs(int s, string *row);
 }; 
 
 #endif

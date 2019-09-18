@@ -5,33 +5,8 @@
 #include <map>
 #include "../include/GraphUtilities.hpp"
 #include "../include/SwapUtilities.hpp"
-#include "../include/MeetingUtilities.hpp"
 
 using namespace std;
-
-void PrintCommands(Graph graph)
-{
-	typedef map <string, list<int>> StringFloatMap;
-	StringFloatMap :: iterator pos;
-
-	for (auto i: graph.commands) 
-	{
-		for (pos = i.begin(); pos != i.end (); ++ pos) 
-		{
-			cout << pos->first << ": ";
-			for (auto j: pos->second)
-			{
-				//cout << graph.ages[j];
-				cout << j + 1;
-				cout << " ";
-			}
-			
-			cout << "\n";
-		}		
-	}
-
-	cout << "\n\n";
-}
 
 void Swap(Graph graph, list<int> items, string *fileOut)
 {	
@@ -49,13 +24,9 @@ void Commander(Graph graph)
 }
 
 void Meeting(Graph graph, string *fileOut)
-{	
-	bool *visited = new bool[graph.V]; 
-    for (int i = 0; i < graph.V; i++) 
-	    visited[i] = false;
-	
+{
 	string row = "";
-	graph.Print(0, visited, &row);		
+	graph.Bfs(0, &row);
 	*fileOut += row + "\n";
 }
 
@@ -85,8 +56,7 @@ void Tasks(Graph graph)
 		}
 	}
 	
-	cout << fileOut;
-	//PrintCommands(graph);
+	cout << fileOut;	
 }
 
 void StartTP1(string equipeFile)

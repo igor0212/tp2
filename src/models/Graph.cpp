@@ -62,16 +62,34 @@ bool Graph::Dfs(int v, bool visited[], bool recStack[])
 	return false;
 }
 
-void Graph::Print(int v, bool visited[], string *row)
-{ 	
-	visited[v] = true;
- 	ostringstream str_v; 
- 	str_v << v+1; 
-	*row += str_v.str() + " ";	
-	list<int>::iterator i; 	
-    for (i = adj[v].begin(); i != adj[v].end(); ++i) 
-	{
-		if (!visited[*i])
-			Print(*i, visited, row);
-	}		
-}
+void Graph::Bfs(int s, string *row) 
+{   
+    bool *visited = new bool[V]; 
+    for(int i = 0; i < V; i++) 
+        visited[i] = false; 
+  
+    list<int> queue; 
+  
+    visited[s] = true; 
+    queue.push_back(s); 
+  
+    list<int>::iterator i; 
+  
+    while(!queue.empty()) 
+    { 
+        s = queue.front();        
+		ostringstream str_s; 
+		str_s << s+1; 
+		*row += str_s.str() + " ";	
+        queue.pop_front(); 
+  
+        for (i = adj[s].begin(); i != adj[s].end(); ++i) 
+        { 
+            if (!visited[*i]) 
+            { 
+                visited[*i] = true; 
+                queue.push_back(*i); 
+            } 
+        } 
+    } 
+} 
