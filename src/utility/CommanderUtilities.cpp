@@ -11,10 +11,12 @@ void OrderUtil(int v, bool visited[], Graph alterGraph, list<int> *all)
     
     list<int>::iterator i; 
     for (i = alterGraph.adj[v].begin(); i != alterGraph.adj[v].end(); ++i) 
-	{		
-		all->push_back(*i);
+	{	
         if (!visited[*i]) 
-            OrderUtil(*i, visited, alterGraph, all); 
+		{
+			all->push_back(*i);
+			OrderUtil(*i, visited, alterGraph, all); 
+		}            
 	}
 }   
 
@@ -27,9 +29,14 @@ int Order(int v, Graph alterGraph)
 	
     OrderUtil(v, visited, alterGraph, &all); 
 
-	all.sort();
+	int age;
 
-	int age = alterGraph.ages[all.front()];
+	if(all.empty())
+		age = -1;
+	else {
+		all.sort();
+		age = alterGraph.ages[all.front()];
+	}
 
 	return age;
 } 
