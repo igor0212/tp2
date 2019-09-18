@@ -27,7 +27,7 @@ void Meeting(Graph graph, string *fileOut)
 {
 	string row = "";
 	graph.Bfs(0, &row);
-	*fileOut += row + "\n";
+	*fileOut += "M " + row + "\n";
 }
 
 void Tasks(Graph graph)
