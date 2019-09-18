@@ -3,8 +3,10 @@
 #include <string>
 #include <list>
 #include <map>
+#include <sstream> 
 #include "../include/GraphUtilities.hpp"
 #include "../include/SwapUtilities.hpp"
+#include "../include/CommanderUtilities.hpp"
 
 using namespace std;
 
@@ -20,14 +22,16 @@ void Swap(Graph graph, list<int> items, string *fileOut)
 
 void Commander(Graph graph, list<int> items, string *fileOut)
 {
-	if(items.empty())
-	{
-		*fileOut += "C *\n";
-		return;	
-	}
+	int commander = GetCommander(graph, items);	
 
-	int item1 = items.front();
-	//cout << "item1: " << item1+1 << "\n";	
+	if(commander < 0)
+		*fileOut += "C * \n";	
+	else 
+	{
+		ostringstream str_age; 
+		str_age << graph.ages[commander]; 
+		*fileOut += "C " + str_age.str() + "\n";		
+	}
 }
 
 void Meeting(Graph graph, string *fileOut)

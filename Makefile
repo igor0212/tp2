@@ -27,6 +27,10 @@ GraphUtilities.o: ${INCLUDE_DIR}/GraphUtilities.hpp ${SRC_DIR}/utility/GraphUtil
 SwapUtilities.o: ${INCLUDE_DIR}/SwapUtilities.hpp ${SRC_DIR}/utility/SwapUtilities.cpp
 	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/utility/SwapUtilities.cpp -o ${BUILD_DIR}/SwapUtilities.o
 
+# CommanderUtilities
+CommanderUtilities.o: ${INCLUDE_DIR}/CommanderUtilities.hpp ${SRC_DIR}/utility/CommanderUtilities.cpp
+	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/utility/CommanderUtilities.cpp -o ${BUILD_DIR}/CommanderUtilities.o
+
 # tp1
 tp1.o: ${INCLUDE_DIR}/tp1.hpp ${SRC_DIR}/tp1.cpp
 	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/tp1.cpp -o ${BUILD_DIR}/tp1.o
@@ -36,7 +40,7 @@ main.o: ${INCLUDE_DIR}/tp1.hpp main.cpp
 	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c main.cpp -o ${BUILD_DIR}/main.o
 
 # app
-main: Graph.o GraphUtilities.o SwapUtilities.o tp1.o main.o 
+main: Graph.o GraphUtilities.o SwapUtilities.o CommanderUtilities.o tp1.o main.o 
 	${CC} ${CFLAGS} -o tp1 ${BUILD_DIR}/*.o
 
 # Rule for cleaning files generated during compilation. 
