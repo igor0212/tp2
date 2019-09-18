@@ -65,31 +65,40 @@ bool Graph::Dfs(int v, bool visited[], bool recStack[])
 void Graph::Bfs(int s, string *row) 
 {   
     bool *visited = new bool[V]; 
-    list<int> queue; 
-    for(int i = 0; i < V; i++)     
+    list<int> queue;
+    list<int> all; 
+    for(int i = 0; i < V; i++)
+    {
+        all.push_back(i);
         visited[i] = false; 
+    }
 
+    visited[s] = true;
+        
     queue.push_back(s); 
-  
-    visited[s] = true;     
-  
+    
     list<int>::iterator i; 
   
     while(!queue.empty()) 
-    { 
-        s = queue.front();        
+    {   
+        s = queue.front();
+        visited[s] = true;   
 		ostringstream str_s; 
 		str_s << s+1; 
 		*row += str_s.str() + " ";	
-        queue.pop_front(); 
-  
+        queue.remove(s);         
+        all.remove(s);    
+          
         for (i = adj[s].begin(); i != adj[s].end(); ++i) 
         { 
             if (!visited[*i])   
             {
-                visited[*i] = true;                              
-                queue.push_back(*i); 
+                visited[*i] = true;                                            
+                queue.push_back(*i);                 
             }          
-        } 
-    } 
+        }         
+
+        if(queue.empty() && !all.empty())                 
+            queue = all;            
+    }
 } 
