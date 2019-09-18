@@ -66,11 +66,10 @@ void Graph::Bfs(int s, string *row)
 {   
     bool *visited = new bool[V]; 
     list<int> queue; 
-    for(int i = 0; i < V; i++) 
-    {
+    for(int i = 0; i < V; i++)     
         visited[i] = false; 
-        queue.push_back(i); 
-    }
+
+    queue.push_back(s); 
   
     visited[s] = true;     
   
@@ -86,8 +85,11 @@ void Graph::Bfs(int s, string *row)
   
         for (i = adj[s].begin(); i != adj[s].end(); ++i) 
         { 
-            if (!visited[*i])             
+            if (!visited[*i])   
+            {
                 visited[*i] = true;                              
+                queue.push_back(*i); 
+            }          
         } 
     } 
 } 
