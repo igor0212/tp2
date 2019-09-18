@@ -18,9 +18,16 @@ void Swap(Graph graph, list<int> items, string *fileOut)
 		*fileOut += "S N\n";
 }
 
-void Commander(Graph graph)
+void Commander(Graph graph, list<int> items, string *fileOut)
 {
-	//printf("Commander\n");
+	if(items.empty())
+	{
+		*fileOut += "C *\n";
+		return;	
+	}
+
+	int item1 = items.front();
+	//cout << "item1: " << item1+1 << "\n";	
 }
 
 void Meeting(Graph graph, string *fileOut)
@@ -46,7 +53,7 @@ void Tasks(Graph graph)
 			if(command == "S")
 				Swap(graph, items, &fileOut);
 			else if(command == "C")
-				Commander(graph);
+				Commander(graph, items, &fileOut);
 			else if(command == "M")
 				Meeting(graph, &fileOut);
 			else

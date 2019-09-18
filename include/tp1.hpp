@@ -9,7 +9,7 @@ using namespace std;
 void Tasks(Graph graph);
 void StartTP1(string equipeFile);
 void Swap(Graph graph, list<int> items, string *fileOut);
-void Commander(Graph graph);
+void Commander(Graph graph, list<int> items, string *fileOut);
 void Meeting(Graph graph, string *fileOut);
 
 #endif
