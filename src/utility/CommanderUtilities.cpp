@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int Order(int v, Graph alterGraph)
+int Order(int v, Graph graph, Graph alterGraph)
 {
 	bool *visited = new bool[alterGraph.V]; 
     list<int> queue;
@@ -28,8 +28,8 @@ int Order(int v, Graph alterGraph)
         { 
             if (!visited[*i])   
             {				
-                visited[*i] = true;                                            
-				neighbor.push_back(*i);
+                visited[*i] = true;   				                                     
+				neighbor.push_back(graph.ages[*i]);				
                 queue.push_back(*i);                 
             }          
         }
@@ -41,7 +41,7 @@ int Order(int v, Graph alterGraph)
 		age = -1;
 	else {
 		neighbor.sort();
-		age = alterGraph.ages[neighbor.front()];
+		age = neighbor.front();
 	}
 
 	return age;
@@ -55,5 +55,5 @@ int GetCommander(Graph graph, list<int> items)
 	int item1 = items.front();
 	Graph alterGraph = graph.GetTranspose();	
 
-	return Order(item1, alterGraph);
+	return Order(item1, graph, alterGraph);
 }

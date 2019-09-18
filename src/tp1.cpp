@@ -29,7 +29,7 @@ void Commander(Graph graph, list<int> items, string *fileOut)
 	else 
 	{
 		ostringstream str_age; 
-		str_age << graph.ages[commander]; 
+		str_age << commander; 
 		*fileOut += "C " + str_age.str() + "\n";		
 	}
 }

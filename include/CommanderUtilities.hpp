@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int Order(int v, Graph alterGraph);
+int Order(int v, Graph graph, Graph alterGraph);
 int GetCommander(Graph graph, list<int> items);
 
 #endif
