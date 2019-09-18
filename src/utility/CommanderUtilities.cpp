@@ -5,17 +5,18 @@
 
 using namespace std;
 
-void OrderUtil(int v, bool visited[], Graph alterGraph, list<int> *all) 
+void OrderUtil(int v, bool visited[], Graph alterGraph, list<int> *neighbor, list<int> *all) 
 { 
     visited[v] = true; 
+	all->remove(v);
     
     list<int>::iterator i; 
     for (i = alterGraph.adj[v].begin(); i != alterGraph.adj[v].end(); ++i) 
 	{	
         if (!visited[*i]) 
 		{
-			all->push_back(*i);
-			OrderUtil(*i, visited, alterGraph, all); 
+			neighbor->push_back(*i);
+			OrderUtil(*i, visited, alterGraph, neighbor, all); 
 		}            
 	}
 }   
@@ -23,19 +24,31 @@ void OrderUtil(int v, bool visited[], Graph alterGraph, list<int> *all)
 int Order(int v, Graph alterGraph) 
 {   
     bool *visited = new bool[alterGraph.V]; 
-	list<int> all;     
+	list<int> all, neighbor;     	
     for (int i = 0; i < alterGraph.V; i++) 	
+	{
+		all.push_back(i);
 		visited[i] = false;   
-	
-    OrderUtil(v, visited, alterGraph, &all); 
+	}
+
+	while(!all.empty())    
+    {	
+		int s;
+		if(all.size() == alterGraph.V)
+			s = v;
+		else		
+			s = all.front();						
+		
+    	OrderUtil(s, visited, alterGraph, &neighbor, &all); 
+	}
 
 	int age;
 
-	if(all.empty())
+	if(neighbor.empty())
 		age = -1;
 	else {
-		all.sort();
-		age = alterGraph.ages[all.front()];
+		neighbor.sort();
+		age = alterGraph.ages[neighbor.front()];
 	}
 
 	return age;
