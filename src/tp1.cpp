@@ -5,6 +5,7 @@
 #include <map>
 #include "../include/GraphUtilities.hpp"
 #include "../include/SwapUtilities.hpp"
+#include "../include/MeetingUtilities.hpp"
 
 using namespace std;
 
@@ -55,7 +56,7 @@ void Meeting(Graph graph, string *fileOut)
 	
 	string row = "";
 	graph.Print(0, visited, &row);		
-	*fileOut += row + "\n";	
+	*fileOut += row + "\n";
 }
 
 void Tasks(Graph graph)
