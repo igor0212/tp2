@@ -3,7 +3,6 @@
 #include <map>
 #include ".\Graph.hpp"
 #include <iostream>
-#include<iostream> 
 #include <sstream> 
 
 using namespace std;
@@ -28,35 +27,41 @@ void Graph::AddEdge(int v1, int v2)
 }
 
 bool Graph::HasCycle()
-{ 
-	bool result = false;
+{ 	
     bool *visited = new bool[V]; 
 	bool *recStack = new bool[V]; 
+    list<int> all;     
+
     for (int i = 0; i < V; i++) 
 	{
         visited[i] = false;
 		recStack[i] = false; 
-	}
+        all.push_back(i);
+	}   
 
-    if(Dfs(0, visited, recStack))
-		result = true;
+    while(!all.empty())    
+    {        
+        if(Dfs(all.front(), visited, recStack, &all))
+            return true;
+    }
 	
-	return result;
+	return false;
 } 
 
-bool Graph::Dfs(int v, bool visited[], bool recStack[]) 
-{ 
+bool Graph::Dfs(int v, bool visited[], bool recStack[], list<int> *all) 
+{     
     visited[v] = true;
 	recStack[v] = true;	
+    all->remove(v);
   
     list<int>::iterator i; 
     for (i = adj[v].begin(); i != adj[v].end(); ++i) 
 	{
-		if (!visited[*i] && Dfs(*i, visited, recStack)) 
+		if (!visited[*i] && Dfs(*i, visited, recStack, all)) 
             return true;
 		else if (recStack[*i])
 			return true;
-	}
+	}   
 
 	recStack[v] = false;
 	return false;
