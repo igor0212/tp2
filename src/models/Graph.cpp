@@ -107,3 +107,18 @@ void Graph::Bfs(int s, string *row)
             queue = all;            
     }
 } 
+
+Graph Graph::GetTranspose()  
+{  
+    Graph g;    
+    g.Create(V);
+    for (int v = 0; v < V; v++)  
+    {          
+        std::list<int>::iterator i;  
+        for(i = adj[v].begin(); i != adj[v].end(); ++i)  
+        {  
+            g.adj[*i].push_back(v);                       
+        }  
+    }  
+    return g;  
+} 
