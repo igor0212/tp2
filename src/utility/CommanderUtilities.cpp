@@ -5,45 +5,38 @@
 
 using namespace std;
 
-void OrderUtil(int v, bool visited[], Graph alterGraph, list<int> *neighbor, list<int> *all) 
-{ 
-    visited[v] = true; 
-	all->remove(v);
+int Order(int v, Graph alterGraph)
+{
+	bool *visited = new bool[alterGraph.V]; 
+    list<int> queue;
+    list<int> neighbor;
+    for(int i = 0; i < alterGraph.V; i++)
+        visited[i] = false;     
+
+    visited[v] = true;
+        
+    queue.push_back(v); 
     
     list<int>::iterator i; 
-    for (i = alterGraph.adj[v].begin(); i != alterGraph.adj[v].end(); ++i) 
-	{	
-        if (!visited[*i]) 
-		{
-			neighbor->push_back(*i);
-			OrderUtil(*i, visited, alterGraph, neighbor, all); 
-		}            
-	}
-}   
-
-int Order(int v, Graph alterGraph) 
-{   
-    bool *visited = new bool[alterGraph.V]; 
-	list<int> all, neighbor;     	
-    for (int i = 0; i < alterGraph.V; i++) 	
-	{
-		all.push_back(i);
-		visited[i] = false;   
-	}
-
-	while(!all.empty())    
-    {	
-		int s;
-		if(all.size() == alterGraph.V)
-			s = v;
-		else		
-			s = all.front();						
-		
-    	OrderUtil(s, visited, alterGraph, &neighbor, &all); 
-	}
+  
+    while(!queue.empty()) 
+    {   
+        v = queue.front();        
+        queue.remove(v);
+          
+        for (i = alterGraph.adj[v].begin(); i != alterGraph.adj[v].end(); ++i) 
+        { 
+            if (!visited[*i])   
+            {				
+                visited[*i] = true;                                            
+				neighbor.push_back(*i);
+                queue.push_back(*i);                 
+            }          
+        }
+              
+    }
 
 	int age;
-
 	if(neighbor.empty())
 		age = -1;
 	else {
@@ -52,7 +45,7 @@ int Order(int v, Graph alterGraph)
 	}
 
 	return age;
-} 
+}
 
 int GetCommander(Graph graph, list<int> items)
 {	
