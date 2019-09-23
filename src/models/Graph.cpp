@@ -37,8 +37,9 @@ bool Graph::HasCycle()
         visited[i] = false;
 		recStack[i] = false; 
         all.push_back(i);
-	}   
+	}  
 
+    //Enquanto nao percorrer todo o grafo, a busca em profundidade não pode finalizar
     while(!all.empty())    
     {        
         if(Dfs(all.front(), visited, recStack, &all))
@@ -83,7 +84,8 @@ void Graph::Bfs(int s, string *row)
     queue.push_back(s); 
     
     list<int>::iterator i; 
-  
+
+    //Enquanto nao percorrer todo o grafo, a busca em largura não pode finalizar  
     while(!queue.empty()) 
     {   
         s = queue.front();
@@ -93,7 +95,8 @@ void Graph::Bfs(int s, string *row)
 		*row += str_s.str() + " ";	
         queue.remove(s);         
         all.remove(s);    
-          
+
+        //Percorrer vizinhos do vertice           
         for (i = adj[s].begin(); i != adj[s].end(); ++i) 
         { 
             if (!visited[*i])   

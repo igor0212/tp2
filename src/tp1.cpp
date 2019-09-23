@@ -14,6 +14,7 @@ void Swap(Graph graph, list<int> items, string *fileOut)
 {	
 	bool isSwap = GetSwap(graph, items);	
 
+	//Adicionar resultado a saida
 	if(isSwap)	
 		*fileOut += "S T\n";
 	else	
@@ -24,6 +25,7 @@ void Commander(Graph graph, list<int> items, string *fileOut)
 {
 	int commander = GetCommander(graph, items);	
 
+	//Adicionar resultado a saida
 	if(commander < 0)
 		*fileOut += "C * \n";	
 	else 
@@ -37,7 +39,11 @@ void Commander(Graph graph, list<int> items, string *fileOut)
 void Meeting(Graph graph, string *fileOut)
 {
 	string row = "";
+
+	//Realizar a busca em largura
 	graph.Bfs(0, &row);
+
+	//Adicionar resultado a saida
 	*fileOut += "M " + row + "\n";
 }
 
@@ -47,6 +53,7 @@ void Tasks(Graph graph)
 	typedef map <string, list<int>> StringFloatMap;
 	StringFloatMap :: iterator pos;	
 
+	//Percorrer a lista de dicionarios para tratar cada comando
 	for (auto i: graph.commands) 
 	{
 		for (pos = i.begin(); pos != i.end (); ++ pos) 
@@ -71,7 +78,10 @@ void Tasks(Graph graph)
 }
 
 void StartTP1(string equipeFile)
-{
+{	
+	//Criação do grafo, dicionario de idades e lista de dicionarios dos comandos
 	Graph graph = GetGraphFromFile(equipeFile);
+
+	//Realizar comandos (Swap, Commander, Meeting)
 	Tasks(graph);
 }

@@ -18,12 +18,14 @@ int Order(int v, Graph graph, Graph alterGraph)
     queue.push_back(v); 
     
     list<int>::iterator i; 
-  
+
+    //Enquanto nao percorrer todo o grafo, a busca nao pode finalizar
     while(!queue.empty()) 
     {   
         v = queue.front();        
         queue.remove(v);
-          
+
+        //Percorrer vizinhos do vertice          
         for (i = alterGraph.adj[v].begin(); i != alterGraph.adj[v].end(); ++i) 
         { 
             if (!visited[*i])   
@@ -32,10 +34,10 @@ int Order(int v, Graph graph, Graph alterGraph)
 				neighbor.push_back(graph.ages[*i]);				
                 queue.push_back(*i);                 
             }          
-        }
-              
+        }              
     }
 
+    //Verificando as idades dos comandantes
 	int age;
 	if(neighbor.empty())
 		age = -1;
@@ -53,7 +55,10 @@ int GetCommander(Graph graph, list<int> items)
 		return -1;	
 
 	int item1 = items.front();
+
+    //Transpor o grafo
 	Graph alterGraph = graph.GetTranspose();	
 
+    //Busca em largura a partir do vertice indicado no parametro
 	return Order(item1, graph, alterGraph);
 }
