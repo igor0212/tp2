@@ -1,16 +1,18 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
-#include <string>
+#include <vector>
 
 using namespace std;
 
-void GetDataFromFile(string islandFile);
+int max(int a, int b);
+
+int Greedy(int W, vector<int> wt, vector<int> val, int n);
+
+int Dynamic(int W, vector<int> wt, vector<int> val, int n);
 
 void Tasks();
 
-void Dynamic(string *fileOut);
-
-void Greedy(string *fileOut);
+void GetDataFromFile(string islandFile);
 
 #endif
