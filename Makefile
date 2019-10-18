@@ -31,17 +31,17 @@ SwapUtilities.o: ${INCLUDE_DIR}/SwapUtilities.hpp ${SRC_DIR}/utility/SwapUtiliti
 CommanderUtilities.o: ${INCLUDE_DIR}/CommanderUtilities.hpp ${SRC_DIR}/utility/CommanderUtilities.cpp
 	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/utility/CommanderUtilities.cpp -o ${BUILD_DIR}/CommanderUtilities.o
 
-# tp1
-tp1.o: ${INCLUDE_DIR}/tp1.hpp ${SRC_DIR}/tp1.cpp
-	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/tp1.cpp -o ${BUILD_DIR}/tp1.o
+# tp2
+tp2.o: ${INCLUDE_DIR}/tp2.hpp ${SRC_DIR}/tp2.cpp
+	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/tp2.cpp -o ${BUILD_DIR}/tp2.o
 
 # main
-main.o: ${INCLUDE_DIR}/tp1.hpp main.cpp
+main.o: ${INCLUDE_DIR}/tp2.hpp main.cpp
 	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c main.cpp -o ${BUILD_DIR}/main.o
 
 # app
-main: Graph.o GraphUtilities.o SwapUtilities.o CommanderUtilities.o tp1.o main.o 
-	${CC} ${CFLAGS} -o tp1 ${BUILD_DIR}/*.o
+main: Graph.o GraphUtilities.o SwapUtilities.o CommanderUtilities.o tp2.o main.o 
+	${CC} ${CFLAGS} -o tp2 ${BUILD_DIR}/*.o
 
 # Rule for cleaning files generated during compilation. 
 # Call 'make clean' to use it 
@@ -52,7 +52,7 @@ clean_windows:
 	del /S "%dir%\build\*.o"    
 
 run:
-	./tp1 equipe.txt
+	./tp2 equipe.txt
 
 run_windows:
-	./tp1.exe equipe.txt
+	./tp2.exe equipe.txt

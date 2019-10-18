@@ -1,6 +1,6 @@
 #include <iostream>
 #include <stdio.h>
-#include "include/tp1.hpp"
+#include "tp2.hpp"
 #include <time.h>
 
 using namespace std;
@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 	}
 	else {					
 		string equipeFile = argv[argc-1];			
-		StartTP1(equipeFile);
+		StartTP2(equipeFile);
 		resultado = 1;
 	}		
 

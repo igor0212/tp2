@@ -77,7 +77,7 @@ void Tasks(Graph graph)
 	cout << fileOut;	
 }
 
-void StartTP1(string equipeFile)
+void StartTP2(string equipeFile)
 {	
 	//Criação do grafo, dicionario de idades e lista de dicionarios dos comandos
 	Graph graph = GetGraphFromFile(equipeFile);
