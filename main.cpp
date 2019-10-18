@@ -17,8 +17,8 @@ int main(int argc, char* argv[])
 		resultado = 0;
 	}
 	else {					
-		string ilhaFile = argv[argc-1];			
-		StartTP2(ilhaFile);
+		string islandFile = argv[argc-1];			
+		StartTP2(islandFile);
 		resultado = 1;
 	}		
 

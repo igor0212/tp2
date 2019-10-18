@@ -6,7 +6,6 @@
 
 using namespace std;
 
-void Tasks();
-void StartTP2(string ilhaFile);
+void StartTP2(string islandFile);
 
 #endif

@@ -6,21 +6,39 @@
 
 using namespace std;
 
-map<int, int> ages;
+map<int, int> isle;
 
-void GetDataFromFile(string ilhaFile)
+void Dynamic(string *fileOut){
+	*fileOut += "Dynamic\n";
+}
+
+void Greedy(string *fileOut){
+	*fileOut += "Greedy\n";
+}
+
+void Tasks()
+{
+	string fileOut = "";
+
+	Dynamic(&fileOut);
+	Greedy(&fileOut);
+	
+	cout << fileOut;	
+}
+
+void GetDataFromFile(string islandFile)
 {	
 	string line;	
 	ifstream inFile;
-	int N, M, I, counter=1;	
-	list<map<string, list<int>>> commands;
+	int N, M, counter=1;	
+	list<map<int, int>> punctuations;
 	
-	inFile.open("datasets/" + ilhaFile);	
+	inFile.open("datasets/" + islandFile);	
 
 	if (!inFile) {
         cout << "Não foi possível abrir o arquivo";
         return;
-    }	
+    }
 
 	//Percorrer todo o arquivo
 	while (getline(inFile, line))
@@ -30,41 +48,22 @@ void GetDataFromFile(string ilhaFile)
 		{  
 			//Armazenando primeira linha: numero de pessoas no time, numero de relações
 			// diretas entre os membros e numero de instrucoes e criando o grafo
-    		if (!(s >> N >> M >> I)) { break; }	
-			//graph.Create(N);
-		} else if (counter == 2)
+    		if (!(s >> N >> M)) { break; }	
+				
+		} else if (counter >= 2 && counter < (2 + M))
 		{	
 			//Criar dicionario (de/para) com as idades das pessoas
-			int age, index=0;			
-			while (s >> age) 
-			{
-				ages[index] = age;
-				index++;
-			}	
-		}
-		else if (counter >= 3 && counter < (3 + M))
-		{
-			//Adicionar arestas no grafo
-			int commander, commanded;			
-			if (!(s >> commander >> commanded)) { break; }
-			//graph.AddEdge(commander-1, commanded-1);
-		}
-		else if (counter >= (3 + M) && counter < ((3 + M) + I))
-		{
-			//Criar lista de dicionarios para os comandos
-			string command = ""; 
-			int commander = 0, commanded = 0;
-			list<int> listCommanderCommanded;
-			map<string, list<int>> cmdDic;			
-			s >> command >> commander >> commanded;			
-			if(commander != 0) listCommanderCommanded.push_back(commander-1);
-			if(commanded != 0) listCommanderCommanded.push_back(commanded-1);
-			cmdDic[command] = listCommanderCommanded;
-			commands.push_back(cmdDic);
-		}
+			int cost, punctuation;
+			if (!(s >> cost >> punctuation)) { break; }			
+
+			isle[cost]	= punctuation;
+			punctuations.push_back(isle);			
+		}		
 
 		counter++;
-	}
+	}	
+
+	Tasks();
 
 	inFile.close();			
 }
