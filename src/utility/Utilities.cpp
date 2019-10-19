@@ -20,10 +20,10 @@ int Greedy(int capacity, vector<int> c, vector<int> p, int n)
 	int amount[202020];
 	memset(amount, 0, sizeof (amount));
 
-    for (int i=0; i<=capacity; i++) 
-      for (int j=0; j<n; j++)
-         if (c[j] <= i)
-            amount[i] = max(amount[i], amount[i - c[j]] + p[j]);  
+    for (int i = 0; i <= capacity; i++) 
+    	for (int j = 0; j < n; j++)
+    		if (c[j] <= i)		 	
+            	amount[i] = max(amount[i], amount[i - c[j]] + p[j]);				
 
     return amount[capacity]; 
 }
