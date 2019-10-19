@@ -64,7 +64,7 @@ void GetDataFromFile(string islandFile)
 {	
 	string line;	
 	ifstream inFile;
-	int counter=1;		
+	int counter = 1;		
 	
 	inFile.open("datasets/" + islandFile);	
 
