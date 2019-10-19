@@ -8,7 +8,7 @@
 using namespace std;
 
 const int INF = 0x3f3f3f3f;
-int N, M, sizeGreedy = 0, sizeDynamic = 0;
+int N, M, sizeGreedy = 0, sizeDynamic = -1;
 int memo[2020][2020];
 vector<int> punctuations, costs;
 
@@ -39,10 +39,14 @@ int Dynamic(int index, int capacity)
 
 	// Caso valor já foi calculado, não é necessário calcular novamente. Basta pegar da matriz de memorização
 	int& amount = memo[index][capacity];
-	if(amount != -1) return amount;
-
+	if(amount != -1) return amount;	
+	
 	// Recursividade que escolhe o caminho máximo (escolhe ou não a ilha)
-	return amount = max(Dynamic(index + 1, capacity - costs[index]) + punctuations[index], Dynamic(index + 1, capacity));
+	amount = max(Dynamic(index + 1, capacity - costs[index]) + punctuations[index], Dynamic(index + 1, capacity));
+
+	if (!amount) sizeDynamic++;
+
+	return amount;
 }
 
 void Tasks()
@@ -54,7 +58,7 @@ void Tasks()
 	//Dynamic
 	memset(memo, -1, sizeof (memo));
 	int dynamic = Dynamic(0, N);
-	cout << dynamic << " " << sizeDynamic << "\n";
+	cout << dynamic << " " << sizeDynamic << "\n";	
 }
 
 void GetDataFromFile(string islandFile)
