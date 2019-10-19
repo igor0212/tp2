@@ -15,18 +15,17 @@ vector<int> punctuations, costs;
 int max(int a, int b) { return (a > b)? a : b; }  
 
 int Greedy(int capacity, vector<int> c, vector<int> p, int n)  
-{       
-	// Caso base
-	if (n == 0 || capacity == 0)  
-		return 0;  	
+{
+	// Armazenar o valor máximo do valor para realiar a viagem 
+	int amount[202020];
+	memset(amount, 0, sizeof (amount));
 
-	// Se o peso do enésimo item for maior que a capacidade financeira, então
-	// este item não pode ser incluído na solução ideal 
-	if (c[n-1] > capacity)  
-		return Greedy(capacity, c, p, n-1);  
-	
-	// Incluir ou não a ilha na viagem
-	else return max(p[n-1] + Greedy(capacity-c[n-1], c, p, n-1), Greedy(capacity, c, p, n-1));  
+    for (int i=0; i<=capacity; i++) 
+      for (int j=0; j<n; j++)
+         if (c[j] <= i)
+            amount[i] = max(amount[i], amount[i - c[j]] + p[j]);  
+
+    return amount[capacity]; 
 }
 
 int Dynamic(int index, int capacity) 
