@@ -7,9 +7,9 @@ using namespace std;
 
 int max(int a, int b);
 
-int Greedy(int W, vector<int> wt, vector<int> val, int n);
+int Greedy(int capacity, vector<int> c, vector<int> p, int n);
 
-int Dynamic(int W, vector<int> wt, vector<int> val, int n);
+int Dynamic(int index, int capacity);
 
 void Tasks();
 

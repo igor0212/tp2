@@ -3,58 +3,57 @@
 #include <sstream>
 #include <vector>
 #include <stdio.h> 
+#include <string.h> 
 
 using namespace std;
 
+const int INF = 0x3f3f3f3f;
 int N, M, sizeGreedy = 0, sizeDynamic = 0;
-vector<int> value;
-vector<int> weight;
+int memo[2020][2020];
+vector<int> punctuations, costs;
 
 int max(int a, int b) { return (a > b)? a : b; }  
 
-int Greedy(int W, vector<int> wt, vector<int> val, int n)  
+int Greedy(int capacity, vector<int> c, vector<int> p, int n)  
+{       
+	// Caso base
+	if (n == 0 || capacity == 0)  
+		return 0;  	
+
+	// Se o peso do enésimo item for maior que a capacidade financeira, então
+	// este item não pode ser incluído na solução ideal 
+	if (c[n-1] > capacity)  
+		return Greedy(capacity, c, p, n-1);  
+	
+	// Incluir ou não a ilha na viagem
+	else return max(p[n-1] + Greedy(capacity-c[n-1], c, p, n-1), Greedy(capacity, c, p, n-1));  
+}
+
+int Dynamic(int index, int capacity) 
 {
-	if (n == 0 || W == 0)
-		return 0;
+	// Capacidade não pode ser negativa
+	if(capacity < 0) return -INF;	
+ 	
+	// Não consigo escolher mais
+	if(index == M) return 0;
 
-	if (wt[n-1] > W)
-		return Greedy(W, wt, val, n-1);
-    else
-		return max(val[n-1] + Greedy(W-wt[n-1], wt, val, n-1), Greedy(W, wt, val, n-1));			  
-}  
+	// Caso valor já foi calculado, não é necessário calcular novamente. Basta pegar da matriz de memorização
+	int& amount = memo[index][capacity];
+	if(amount != -1) return amount;
 
-int Dynamic(int W, vector<int> wt, vector<int> val, int n) 
-{ 
-   int i, w;
-
-   int** K = new int*[n+1];
-   for (int i = 0; i < n+1; i++)
-   		K[i] = new int[W+1];
-  
-   for (i = 0; i <= n; i++) 
-   { 
-       for (w = 0; w <= W; w++) 
-       { 
-           if (i==0 || w==0) 
-			   K[i][w] = 0;
-                
-           else if (wt[i-1] <= w)
-			   K[i][w] = max(val[i-1] + K[i-1][w-wt[i-1]],  K[i-1][w]);
-                  
-           else
-			   K[i][w] = K[i-1][w];
-       } 
-   } 
-  
-   return K[n][W]; 
-} 
+	// Recursividade que escolhe o caminho máximo (escolhe ou não a ilha)
+	return amount = max(Dynamic(index + 1, capacity - costs[index]) + punctuations[index], Dynamic(index + 1, capacity));
+}
 
 void Tasks()
 {
-	int greedy = Greedy(N, weight, value, M);
+	//Greedy
+	int greedy = Greedy(N, costs, punctuations, M);
 	cout << greedy << " " << sizeGreedy << "\n";
 
-	int dynamic = Dynamic(N, weight, value, M);
+	//Dynamic
+	memset(memo, -1, sizeof (memo));
+	int dynamic = Dynamic(0, N);
 	cout << dynamic << " " << sizeDynamic << "\n";
 }
 
@@ -71,24 +70,23 @@ void GetDataFromFile(string islandFile)
         return;
     }
 
-	//Percorrer todo o arquivo
+	// Percorrer todo o arquivo
 	while (getline(inFile, line))
 	{	
 		istringstream s(line);		
 		if (counter == 1)
 		{  
-			//Armazenando primeira linha: numero de pessoas no time, numero de relações
-			// diretas entre os membros e numero de instrucoes e criando o grafo
+			// Armazenando primeira linha: custo maximo em reais e quantidade de ilhas pontuadas
     		if (!(s >> N >> M)) { break; }	
 				
 		} else if (counter >= 2 && counter < (2 + M))
 		{	
-			//Criar dicionario (de/para) com as idades das pessoas
+			// Criar vetores para o custo de cada ilha e sua pontuacao
 			int cost, punctuation;
 			if (!(s >> cost >> punctuation)) { break; }			
 
-			value.push_back(punctuation);
-			weight.push_back(cost);						
+			punctuations.push_back(punctuation);
+			costs.push_back(cost);						
 		}		
 
 		counter++;
