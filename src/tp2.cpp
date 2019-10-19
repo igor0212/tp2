@@ -10,6 +10,6 @@ using namespace std;
 
 void StartTP2(string islandFile)
 {	
-	//Criação do grafo, dicionario de idades e lista de dicionarios dos comandos
+	//Leitura do arquivo e execucao dos algoritmos (guloso e programacao dinamica)
 	GetDataFromFile(islandFile);
 }
