@@ -40,7 +40,7 @@ clean_windows:
 	del /S "%dir%\build\*.o"    
 
 run:
-	./tp2 exemplo.txt
+	./tp2 exemplo1.txt
 
 run_windows:
-	./tp2.exe exemplo.txt
+	./tp2.exe exemplo1.txt
