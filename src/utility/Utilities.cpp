@@ -4,6 +4,8 @@
 #include <vector>
 #include <stdio.h> 
 #include <string.h> 
+#include <map>
+#include <list>
 
 using namespace std;
 
@@ -11,21 +13,44 @@ const int INF = 0x3f3f3f3f;
 int N, M, sizeGreedy = 0, sizeDynamic = -1;
 int memo[2020][2020];
 vector<int> punctuations, costs;
+list<float> benefit;
+map<float, vector<int>> punctuationsCosts;
 
 int max(int a, int b) { return (a > b)? a : b; }  
 
-int Greedy(int capacity, vector<int> c, vector<int> p, int n)  
+int Greedy(int capacity)  
 {
-	// Armazenar o valor máximo do valor para realiar a viagem 
-	int amount[202020];
-	memset(amount, 0, sizeof (amount));
+	int points = 0;
+	
+	//Ordernar vetor pelo custo/beneficio
+	benefit.sort();	
 
-    for (int i = 0; i <= capacity; i++) 
-    	for (int j = 0; j < n; j++)
-    		if (c[j] <= i)		 	
-            	amount[i] = max(amount[i], amount[i - c[j]] + p[j]);				
+	// Iniciar loop com o primeiro item
+	list<float>::iterator it = benefit.begin();
 
-    return amount[capacity]; 
+	while(capacity > 0)
+	{		
+		vector<int> costPoint = punctuationsCosts[*it];
+		int cost = costPoint[0];
+		int point = costPoint[1];
+
+		if(cost <= capacity)
+		{
+			capacity -= cost;
+			points += point;
+			sizeGreedy++;
+		}
+		else
+		{
+			// Se for o ultimo elemento e nao puser mais subtrair da capacida, encerramos o loop
+			if(*it == benefit.back())
+				break;
+
+			++it;
+		}		
+	}    
+
+    return points; 
 }
 
 int Dynamic(int index, int capacity) 
@@ -51,7 +76,7 @@ int Dynamic(int index, int capacity)
 void Tasks()
 {
 	//Greedy
-	int greedy = Greedy(N, costs, punctuations, M);
+	int greedy = Greedy(N);
 	cout << greedy << " " << sizeGreedy << "\n";
 
 	//Dynamic
@@ -89,7 +114,17 @@ void GetDataFromFile(string islandFile)
 			if (!(s >> cost >> punctuation)) { break; }			
 
 			punctuations.push_back(punctuation);
-			costs.push_back(cost);						
+			costs.push_back(cost);
+
+			// Criar custo/beneficio para o algoritmo guloso
+			float costBenefit = float(cost)/float(punctuation);
+			benefit.push_back(costBenefit);	
+
+			// Criar dicionario para armazenar as informacoes
+			vector<int> pointCosts;
+			pointCosts.push_back(cost);
+			pointCosts.push_back(punctuation);
+			punctuationsCosts[costBenefit] = pointCosts;
 		}		
 
 		counter++;

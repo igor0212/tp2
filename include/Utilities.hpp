@@ -7,7 +7,7 @@ using namespace std;
 
 int max(int a, int b);
 
-int Greedy(int capacity, vector<int> c, vector<int> p, int n);
+int Greedy(int capacity);
 
 int Dynamic(int index, int capacity);
 
